@@ -41,7 +41,7 @@ export default function Login() {
             className="eye-icon"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? '🙈' : '👁️'}
+            {showPassword ? '🚫👁️' : '👁️'}
           </span>
         </div>
         <button className="btn-primary login-btn" onClick={handleLogin}>

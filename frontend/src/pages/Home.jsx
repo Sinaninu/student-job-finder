@@ -11,7 +11,7 @@ export default function Home() {
         <p>Discover part-time and entry-level jobs all in one place.</p>
         <div className="hero-buttons">
           <button className="btn-primary" onClick={() => navigate('/login?role=student')}>
-            Get Started
+             I'm a Student
           </button>
           <button className="btn-outline" onClick={() => navigate('/login?role=company')}>
             I'm a Company

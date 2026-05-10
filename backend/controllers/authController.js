@@ -104,3 +104,11 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+// GET /api/auth/profile
+export const getProfile = async (req, res) => {
+  res.status(200).json({
+    message: "Protected profile route",
+    user: req.user,
+  });
+};

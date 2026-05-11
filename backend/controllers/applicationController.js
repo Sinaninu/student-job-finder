@@ -38,9 +38,24 @@ const getMyApplications = async (req,res) => {
     }
 }
 
+const getCompanyApplications = async (req,res) => {
+    try{
+        const applications = await Application.find({ companyId: req.user._id })
+        .populate("jobId")
+        .populate("studentId", "name email role");
+        return res.status(200).json(applications)
+
+    }catch(error){
+        res.status(400).json({ error: error.message })
+    }
+}
+
+
+
 export {
     createApplication,
-    getMyApplications
+    getMyApplications,
+    getCompanyApplications
 };
 
 

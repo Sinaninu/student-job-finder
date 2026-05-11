@@ -2,7 +2,7 @@
  import Job from "../models/Job.js";
 
 
- const createApplication = async (req,res) =>{
+ const createApplication = async (req,res) => {
     try{
         const { jobId, message } = req.body;
         const job = await Job.findById(jobId);
@@ -26,8 +26,21 @@
 
 };
 
+
+const getMyApplications = async (req,res) => {
+    try{
+        const applications = await Application.find({ studentId: req.user._id })
+        .populate("jobId");
+        return res.status(200).json(applications);
+
+    }catch(error){
+        res.status(400).json({ error: error.message })
+    }
+}
+
 export {
-    createApplication
+    createApplication,
+    getMyApplications
 };
 
 

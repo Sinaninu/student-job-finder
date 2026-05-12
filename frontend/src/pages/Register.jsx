@@ -1,20 +1,45 @@
 import React, { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
+import API from '../services/api'
 
 export default function Register() {
-  const { register } = useAuth() // assuming you have a register function in AuthContext
   const navigate = useNavigate()
+
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('student') // 'student' or 'company'
+  const [role, setRole] = useState('student')
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleRegister = () => {
-    if (register(email, password, role)) {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+
+    try {
+      const response = await API.post('/auth/register', {
+        name,
+        email,
+        password,
+        role,
+      })
+
+      console.log('Register response:', response.data)
+
+      alert('Account created successfully!')
+
       navigate('/login?role=' + role)
-    } else {
-      alert('Registration failed (demo)')
+    } catch (err) {
+      console.error('Registration error:', err)
+
+      setError(
+        err.response?.data?.message || 'Registration failed. Please try again.'
+      )
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -22,48 +47,71 @@ export default function Register() {
     <div className="login-page">
       <div className="login-card">
         <h2>Create Account</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <div className="password-wrapper">
+
+        {error && <p className="error-message">{error}</p>}
+
+        <form onSubmit={handleRegister}>
           <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="text"
+            placeholder="Full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-          <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? '🙈' : '👁️'}
-          </span>
-        </div>
-        <div className="role-selector">
-          <label className={`role-option ${role === 'student' ? 'active' : ''}`}>
+
+          <div className="password-wrapper">
             <input
-              type="radio"
-              name="role"
-              value="student"
-              checked={role === 'student'}
-              onChange={() => setRole('student')}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
-            Student
-          </label>
-          <label className={`role-option ${role === 'company' ? 'active' : ''}`}>
-            <input
-              type="radio"
-              name="role"
-              value="company"
-              checked={role === 'company'}
-              onChange={() => setRole('company')}
-            />
-            Company
-          </label>
-        </div>
-        <button className="btn-primary login-btn" onClick={handleRegister}>
-          Create Account
-        </button>
+
+            <span
+              className="eye-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          </div>
+
+          <div className="role-selector">
+            <label className={`role-option ${role === 'student' ? 'active' : ''}`}>
+              <input
+                type="radio"
+                name="role"
+                value="student"
+                checked={role === 'student'}
+                onChange={() => setRole('student')}
+              />
+              Student
+            </label>
+
+            <label className={`role-option ${role === 'company' ? 'active' : ''}`}>
+              <input
+                type="radio"
+                name="role"
+                value="company"
+                checked={role === 'company'}
+                onChange={() => setRole('company')}
+              />
+              Company
+            </label>
+          </div>
+
+          <button className="btn-primary login-btn" type="submit" disabled={loading}>
+            {loading ? 'Creating account...' : 'Create Account'}
+          </button>
+        </form>
+
         <p className="register-link">
           Already have an account? <Link to="/login">Login</Link>
         </p>

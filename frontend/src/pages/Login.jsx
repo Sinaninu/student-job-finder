@@ -12,11 +12,12 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleLogin = () => {
-    if (login(email, password)) {
+  const handleLogin = async () => {
+    try {
+      await login(email, password)
       navigate('/dashboard')
-    } else {
-      alert('Invalid email or password')
+    } catch (error) {
+      alert(error.response?.data?.message || 'Invalid email or password')
     }
   }
 

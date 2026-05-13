@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import About from './pages/About.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import MyApplications from './pages/MyApplications.jsx'
+import JobDetails from './pages/JobDetails.jsx'
 
 export default function App(){
   return(
@@ -18,6 +19,7 @@ export default function App(){
       <Route path='/register' element={<Register/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/jobs' element={<Jobs/>}/>
+      <Route path='/jobs/:id' element={<JobDetails/>}/>
       <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
       <Route path='/applications' element={<ProtectedRoute><MyApplications/></ProtectedRoute>}/>
     </Routes>

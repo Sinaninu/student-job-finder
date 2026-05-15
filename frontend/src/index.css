@@ -334,3 +334,45 @@ button {
     justify-content: center;
   }
 }
+/* Apply job layout*/
+.job-details-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f5f7fb;
+}
+
+.job-details-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.job-details-card h1 {
+  margin-top: 24px;
+  font-size: 40px;
+  color: #172033;
+}
+
+.job-description {
+  font-size: 18px;
+  margin-bottom: 24px;
+  color: #4b5563;
+}
+
+.job-details-card p {
+  font-size: 17px;
+  margin: 10px 0;
+}
+
+.job-details-actions {
+  margin-top: 28px;
+}
+
+.apply-message {
+  margin-top: 16px;
+  font-weight: 600;
+  color: #2563eb;
+}

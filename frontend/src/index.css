@@ -334,299 +334,78 @@ button {
     justify-content: center;
   }
 }
-
-.job-card-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+/* Apply job layout*/
+.job-details-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f5f7fb;
 }
 
-.btn-saved {
-  background: #fbbf24;
-  color: #1f2937;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.btn-saved:hover {
-  background: #f59e0b;
-}
-
-.remove-btn {
-  margin-top: 0.5rem;
-  width: 100%;
-}
-
-.saved-job-card {
-  position: relative;
-}
-
-
-/* Admin Dashboard Styles */
-.admin-container {
-  max-width: 1280px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-}
-
-.admin-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.stat-card {
+.job-details-card {
+  max-width: 800px;
+  margin: 0 auto;
   background: white;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  text-align: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  border: 1px solid #e5e7eb;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #2563eb;
-  margin-top: 0.5rem;
+.job-details-card h1 {
+  margin-top: 24px;
+  font-size: 40px;
+  color: #172033;
 }
 
-.admin-section {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  margin-bottom: 2rem;
-  border: 1px solid #e5e7eb;
+.job-description {
+  font-size: 18px;
+  margin-bottom: 24px;
+  color: #4b5563;
 }
 
-.admin-section h2 {
-  margin-bottom: 1rem;
+.job-details-card p {
+  font-size: 17px;
+  margin: 10px 0;
 }
 
-.admin-table {
-  overflow-x: auto;
-  margin-top: 1rem;
+.job-details-actions {
+  margin-top: 28px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-th {
-  background: #f9fafb;
+.apply-message {
+  margin-top: 16px;
   font-weight: 600;
-}
-
-.btn-edit, .btn-delete {
-  padding: 0.3rem 0.8rem;
-  margin: 0 0.25rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.btn-edit {
-  background: #e0e7ff;
-  color: #3730a3;
-}
-
-.btn-delete {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-/* Mobile Menu */
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-}
-
-.active-link {
   color: #2563eb;
-  font-weight: 600;
 }
 
-@media (max-width: 768px) {
-  .mobile-menu-btn {
-    display: block;
-  }
-  
-  .nav-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 0;
-  }
-  
-  .nav-links.mobile-open {
-    display: flex;
-  }
-  
-  .nav-container {
-    flex-wrap: wrap;
-  }
-}
-/* Responsive Design Improvements */
-@media (max-width: 768px) {
-  /* Typography */
-  h1 {
-    font-size: 2rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-  }
-  
-  .hero h1 {
-    font-size: 2rem;
-  }
-  
-  .hero p {
-    font-size: 1rem;
-  }
-  
-  /* Container padding */
-  .container {
-    padding: 0 1rem;
-  }
-  
-  /* Cards */
-  .card {
-    padding: 1rem;
-  }
-  
-  /* Buttons */
-  button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  /* Filter bar */
-  .filter-bar {
-    flex-direction: column;
-    padding: 1rem;
-  }
-  
-  .filter-input,
-  .filter-select {
-    width: 100%;
-  }
-  
-  /* Grid layouts */
-  .admin-stats {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Tables - make scrollable */
-  .admin-table {
-    overflow-x: auto;
-  }
-  
-  table {
-    font-size: 0.85rem;
-  }
-  
-  th, td {
-    padding: 0.5rem;
-  }
+/*Application layout*/
+.applications-page {
+  padding: 40px;
+  background: #f5f7fb;
+  min-height: 100vh;
 }
 
-@media (max-width: 480px) {
-  /* Small phones */
-  .hero-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .job-card-buttons {
-    flex-direction: column;
-  }
-  
-  .login-card {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
+.applications-page h2 {
+  margin-bottom: 24px;
+  font-size: 32px;
 }
-/* Loading Spinner */
-.loading-spinner {
+
+.applications-list {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e5e7eb;
-  border-top-color: #2563eb;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+.application-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.application-card h3 {
+  margin-bottom: 12px;
 }
 
-/* Toast Animation */
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Card Hover Animations */
-.card {
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-}
-
-/* Button Hover Effects */
-.btn-primary, .btn-outline, .btn-saved {
-  transition: all 0.2s;
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-}
-
-/* Fade In Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.container, .hero-content, .login-card {
-  animation: fadeIn 0.5s ease-out;
+.application-card p {
+  margin: 8px 0;
 }

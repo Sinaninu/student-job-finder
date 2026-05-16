@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import JobCard from '../components/JobCard'
 
 export default function SavedJobs() {
@@ -24,11 +25,11 @@ export default function SavedJobs() {
     <div className="container">
       <h2>Saved Jobs</h2>
       {savedJobs.length > 0 ? (
-        savedJobs.map(job => <JobCard key={job.id} job={job} />)
+        savedJobs.map(job => <JobCard key={job._id || job.id} job={job} />)
       ) : (
         <div className="card">
           <p>No saved jobs yet. Browse jobs and click "☆ Save Job".</p>
-          <button className="btn-primary" onClick={() => window.location.href = '/jobs'}>
+          <button className="btn-primary" onClick={() => navigate('/jobs')}>
             Browse Jobs
           </button>
         </div>

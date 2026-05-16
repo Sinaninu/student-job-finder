@@ -36,7 +36,7 @@ export default function Register() {
       console.error('Registration error:', err)
 
       setError(
-        err.response?.data?.message || 'Registration failed. Please try again.'
+        err.response?.data?.message || err.message || 'Registration failed. Please try again.'
       )
     } finally {
       setLoading(false)

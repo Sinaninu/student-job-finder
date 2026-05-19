@@ -13,7 +13,7 @@ const generateToken = (userId) => {
 // POST /api/auth/register
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password} = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -35,7 +35,7 @@ export const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role,
+      role:"student",
     });
 
     const token = generateToken(user._id);

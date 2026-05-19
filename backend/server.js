@@ -2,11 +2,32 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
-
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
 
 import authRoutes from "./routes/authRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
+
+
+
+// Start addition from saida
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+dns.setDefaultResultOrder("ipv4first");
+
+dotenv.config();
+connectDB();
+
+//end addtion
+
+
+
+
+
+
+
+
 
 
 dotenv.config();

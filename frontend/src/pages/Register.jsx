@@ -36,7 +36,9 @@ export default function Register() {
       console.error('Registration error:', err)
 
       setError(
-        err.response?.data?.message || 'Registration failed. Please try again.'
+        err.response?.data?.message ||
+        (err.request ? 'Unable to reach the backend API. Please make sure the server is running on http://localhost:5000.' : err.message) ||
+        'Registration failed. Please try again.'
       )
     } finally {
       setLoading(false)

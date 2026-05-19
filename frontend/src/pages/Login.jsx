@@ -15,9 +15,14 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       await login(email, password)
-      navigate('/dashboard')
+      const storedUser = JSON.parse(localStorage.getItem('user') || '{}')
+      if (storedUser.role === 'admin') {
+        navigate('/admin')
+      } else {
+        navigate('/dashboard')
+      }
     } catch (error) {
-      alert(error.response?.data?.message || 'Invalid email or password')
+      alert(error.response?.data?.message || error.message || 'Invalid email or password')
     }
   }
 

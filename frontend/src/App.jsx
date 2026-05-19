@@ -23,6 +23,7 @@ export default function App(){
       <Route path='/register' element={<Register/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/jobs' element={<Jobs/>}/>
+      <Route path='/jobs/:id' element={<JobDetails/>}/>
       <Route path='/saved-jobs' element={<ProtectedRoute><SavedJobs/></ProtectedRoute>}/>
       <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
       <Route path='/applications' element={<ProtectedRoute><MyApplications/></ProtectedRoute>}/>

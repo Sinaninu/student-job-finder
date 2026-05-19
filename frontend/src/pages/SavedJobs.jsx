@@ -4,6 +4,7 @@ import JobCard from '../components/JobCard'
 
 export default function SavedJobs() {
   const [savedJobs, setSavedJobs] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const stored = localStorage.getItem('savedJobs')

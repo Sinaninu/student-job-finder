@@ -25,16 +25,16 @@ const applicationSchema = new mongoose.Schema(
 
     status : {
         type: String,
-        enum: ["pending", "accepted", "rejected"],
-        default: "pending"
+        enum: ["submitted", "reviewed", "closed", "withdrawn", "accepted", "rejected"],
+        default: "submitted"
 
 
     },
 
     message:{
-        type: String
-
-
+        type: String,
+        trim: true,
+        default: "",
     },
 
 },

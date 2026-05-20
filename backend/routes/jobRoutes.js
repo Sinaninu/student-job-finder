@@ -2,16 +2,26 @@ import express from "express";
 const router = express.Router();
 
 import {
-    createJob,
-    getJobs,
-    getJobById,
+  createJob,
+  getJobs,
+  getJobById,
+  getCompanyJobs,
+  updateJob,
+  deleteJob,
 } from "../controllers/jobController.js";
 
 import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
 
-// CRUD routes
+// Public route
 router.get("/", getJobs);
-router.get("/:id", getJobById);
+
+// Company/Admin routes
+router.get(
+  "/company/my-jobs",
+  protect,
+  authorizeRoles("company", "admin"),
+  getCompanyJobs
+);
 
 router.post(
   "/",
@@ -19,5 +29,21 @@ router.post(
   authorizeRoles("company", "admin"),
   createJob
 );
+
+router.put(
+  "/:id",
+  protect,
+  authorizeRoles("company", "admin"),
+  updateJob
+);
+
+router.delete(
+  "/:id",
+  protect,
+  authorizeRoles("company", "admin"),
+  deleteJob
+);
+
+router.get("/:id", getJobById);
 
 export default router;

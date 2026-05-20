@@ -4,12 +4,14 @@ const jobSchema = new mongoose.Schema(
 {
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
     },
 
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
 
     },
 
@@ -23,33 +25,45 @@ const jobSchema = new mongoose.Schema(
 
     jobType:{
         type: String,
-        required: true
+        required: true,
+        enum: ["Internship", "Full-time", "Part-time", "Contract", "Temporary"],
 
     },
 
     location:{
         type: String,
-        required: true 
+        required: true,
+        trim: true, 
 
     }, 
 
     category:{
      type: String,
-     required: true
+     required: true,
+     trim: true,
     },
-    //Some extra 
-    ///salary:{
-    //
-    //},
 
-    //requirements:{
-    //},
+    industry: {
+      type: String,
+      trim: true,
+      default: "",
+    },
 
+     majorTags: [{ type: String, trim: true }],
+   
+    salaryMin: {
+        type: Number,
+        default: 0,
+    },
+
+    salaryMax: {
+        type: Number,
+        default: 0,
+    },
     
-
-
-
-
+    requirements: { type: String, trim: true },
+    isActive: { type: Boolean, default: true },
+    views: { type: Number, default: 0 },
 
 
 },
@@ -57,10 +71,6 @@ const jobSchema = new mongoose.Schema(
 {
 timestamps: true
 }
-
-
-
-
-
 );
+jobSchema.index({ title: "text", description: "text", category: "text", industry: "text", majorTags: "text" });
 export default mongoose.model("Job", jobSchema);

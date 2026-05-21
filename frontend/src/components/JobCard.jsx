@@ -1,50 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
-export default function JobCard({ job }) {
+export default function JobCard({ job, isSaved = false, onToggleSave }) {
   const navigate = useNavigate()
-  const [isSaved, setIsSaved] = useState(false)
+  const { user } = useAuth()
   const jobId = job._id || job.id
-
-  useEffect(() => {
-    const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]')
-    setIsSaved(savedJobs.some(j => (j._id || j.id) === jobId))
-  }, [jobId])
-
-  const handleSaveJob = () => {
-    const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]')
-    if (!isSaved) {
-      savedJobs.push(job)
-      localStorage.setItem('savedJobs', JSON.stringify(savedJobs))
-      setIsSaved(true)
-      alert('Job saved!')
-    } else {
-      const updated = savedJobs.filter(j => (j._id || j.id) !== jobId)
-      localStorage.setItem('savedJobs', JSON.stringify(updated))
-      setIsSaved(false)
-      alert('Job removed from saved!')
-    }
-  }
+  const companyName = job.companyId?.companyProfile?.companyName || job.companyId?.name || 'Company'
 
   return (
     <div className="card">
       <h3>{job.title}</h3>
-      <p><strong>{job.companyId?.name || 'Company'}</strong></p>
-      <p>{job.location} • {job.jobType} • {job.category}{job.salary ? ` • ${job.salary}` : ''}</p>
+      <p><strong>{companyName}</strong></p>
+      <p>
+        {job.location} • {job.jobType} • {job.category}
+        {job.industry ? ` • ${job.industry}` : ''}
+        {job.salaryMin || job.salaryMax ? ` • ${job.salaryMin || ''}-${job.salaryMax || ''}` : ''}
+      </p>
+      {job.majorTags?.length > 0 && <p><strong>Majors:</strong> {job.majorTags.join(', ')}</p>}
       {job.description && <p>{job.description}</p>}
       <div className="job-card-buttons">
-        <button
-          className="btn-primary"
-          onClick={() => navigate(`/jobs/${jobId}`)}
-        >
+        <button className="btn-primary" onClick={() => navigate(`/jobs/${jobId}`)}>
           View Details
         </button>
-        <button 
-          className={isSaved ? "btn-saved" : "btn-outline"}
-          onClick={handleSaveJob}
-        >
-          {isSaved ? '★ Saved' : '☆ Save Job'}
-        </button>
+
+        {user?.role === 'student' && (
+          <button className={isSaved ? 'btn-saved' : 'btn-outline'} onClick={() => onToggleSave?.(job)}>
+            {isSaved ? '★ Remove Saved' : '☆ Save Job'}
+          </button>
+        )}
       </div>
     </div>
   )

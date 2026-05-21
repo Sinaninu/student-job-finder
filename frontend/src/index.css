@@ -409,3 +409,129 @@ button {
 .application-card p {
   margin: 8px 0;
 }
+/* RBAC / roadmap additions */
+.error-message {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.btn-saved {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-delete {
+  background: #fee2e2;
+  color: #b91c1c;
+  margin-left: 0.5rem;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.form-page .card {
+  margin-top: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.upload-row input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+}
+
+.form-grid textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.upload-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.timeline {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0;
+}
+
+.timeline-step,
+.status-pill {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+}
+
+.timeline-step.active {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-pill.withdrawn {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.admin-table {
+  overflow-x: auto;
+}
+
+.admin-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+.admin-table select {
+  padding: 0.4rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+}

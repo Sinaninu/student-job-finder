@@ -1,17 +1,21 @@
-
 import React from 'react'
 import { useAuth } from '../context/AuthContext'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
-export default function ProtectedRoute({ children, role }){
-  const { user } = useAuth()
+export default function ProtectedRoute({ children, roles }) {
+  const { user, loadingAuth } = useAuth()
+  const location = useLocation()
+
+  if (loadingAuth) return <p className="container">Loading...</p>
 
   if (!user) {
-    return <Navigate to='/login' />
+    return <Navigate to="/login" replace state={{ from: location }} />
   }
 
-  if (role && user.role !== role) {
-    return <Navigate to='/dashboard' />
+  const allowedRoles = Array.isArray(roles) ? roles : roles ? [roles] : []
+  if (allowedRoles.length && !allowedRoles.includes(user.role)) {
+    const fallback = user.role === 'company' ? '/company/dashboard' : user.role === 'admin' ? '/admin' : '/student/dashboard'
+    return <Navigate to={fallback} replace />
   }
 
   return children

@@ -5,6 +5,8 @@ import {
   getAdminJobs,
   getAdminStats,
   getAdminUsers,
+  deleteAdminUser,
+  deleteAdminApplication,
 } from "../controllers/adminController.js";
 
 const router = express.Router();
@@ -19,5 +21,8 @@ router.get("/stats", getAdminStats);
 router.get("/users", getAdminUsers);
 router.get("/jobs", getAdminJobs);
 router.get("/applications", getAdminApplications);
+
+router.delete("/users/:id", deleteAdminUser);
+router.delete("/applications/:id", deleteAdminApplication);
 
 export default router;

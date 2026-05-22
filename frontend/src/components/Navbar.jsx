@@ -59,6 +59,7 @@ export default function Navbar() {
             <>
               <NavLink to="/login?role=student" className="login-link">Student Login</NavLink>
               <NavLink to="/login?role=company" className="login-link">Company Login</NavLink>
+              <NavLink to="/login?role=admin" className="login-link">Admin Login</NavLink>
             </>
           )}
         </div>

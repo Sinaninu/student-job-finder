@@ -7,6 +7,7 @@ const applicationStatuses = ['submitted', 'reviewed', 'accepted', 'rejected', 'c
 
 const formatDate = (value) => {
   if (!value) return 'Not available'
+
   return new Date(value).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -113,6 +114,7 @@ export default function AdminDashboard() {
 
       setJobs((currentJobs) => currentJobs.filter((job) => job._id !== jobId))
       setStatusMessage('Job deleted successfully.')
+      loadAdminData()
     } catch (err) {
       setError(err.response?.data?.message || 'Could not delete job.')
     }
@@ -133,6 +135,7 @@ export default function AdminDashboard() {
       )
 
       setStatusMessage('Application deleted successfully.')
+      loadAdminData()
     } catch (err) {
       setError(err.response?.data?.message || 'Could not delete application.')
     }
@@ -175,6 +178,7 @@ export default function AdminDashboard() {
       )
 
       setStatusMessage('Application status updated.')
+      loadAdminData()
     } catch (err) {
       setError(err.response?.data?.message || 'Could not update application status.')
     }
@@ -202,6 +206,16 @@ export default function AdminDashboard() {
       hint: 'Visible on public jobs page',
     },
   ]
+
+  const chartData = [
+    { label: 'Students', value: stats?.totalStudents ?? 0 },
+    { label: 'Companies', value: stats?.totalCompanies ?? 0 },
+    { label: 'Jobs', value: stats?.totalJobs ?? 0 },
+    { label: 'Applications', value: stats?.totalApplications ?? 0 },
+    { label: 'Active jobs', value: stats?.activeJobs ?? 0 },
+  ]
+
+  const maxChartValue = Math.max(...chartData.map((item) => item.value), 1)
 
   return (
     <main className="admin-dashboard page-shell">
@@ -251,18 +265,21 @@ export default function AdminDashboard() {
                 >
                   Overview
                 </button>
+
                 <button
                   className={activeTab === 'jobs' ? 'active' : ''}
                   onClick={() => setActiveTab('jobs')}
                 >
                   Jobs
                 </button>
+
                 <button
                   className={activeTab === 'applications' ? 'active' : ''}
                   onClick={() => setActiveTab('applications')}
                 >
                   Applications
                 </button>
+
                 <button
                   className={activeTab === 'users' ? 'active' : ''}
                   onClick={() => setActiveTab('users')}
@@ -281,52 +298,80 @@ export default function AdminDashboard() {
             </div>
 
             {activeTab === 'overview' && (
-              <div className="admin-overview-grid">
-                <div className="admin-card">
-                  <h2>Recent jobs</h2>
-                  <div className="compact-list">
-                    {jobs.slice(0, 5).map((job) => (
-                      <div className="compact-row" key={job._id}>
-                        <div>
-                          <strong>{job.title}</strong>
-                          <span>
-                            {getCompanyName(job)} • {job.location}
-                          </span>
+              <>
+                <div className="admin-chart-card">
+                  <div className="admin-chart-header">
+                    <div>
+                      <h2>System statistics</h2>
+                      <p>Visual overview of users, jobs, and applications</p>
+                    </div>
+                  </div>
+
+                  <div className="admin-bar-chart">
+                    {chartData.map((item) => (
+                      <div className="admin-chart-row" key={item.label}>
+                        <span className="admin-chart-label">{item.label}</span>
+
+                        <div className="admin-chart-track">
+                          <div
+                            className="admin-chart-fill"
+                            style={{ width: `${(item.value / maxChartValue) * 100}%` }}
+                          ></div>
                         </div>
-                        <span className={`status-pill ${job.isActive ? 'active' : 'closed'}`}>
-                          {job.isActive ? 'active' : 'inactive'}
-                        </span>
+
+                        <span className="admin-chart-value">{item.value}</span>
                       </div>
                     ))}
-
-                    {jobs.length === 0 && <p className="muted">No jobs found yet.</p>}
                   </div>
                 </div>
 
-                <div className="admin-card">
-                  <h2>Recent applications</h2>
-                  <div className="compact-list">
-                    {applications.slice(0, 5).map((application) => (
-                      <div className="compact-row" key={application._id}>
-                        <div>
-                          <strong>{application.studentId?.name || 'Unknown student'}</strong>
-                          <span>
-                            {application.jobId?.title || 'Unknown job'} •{' '}
-                            {formatDate(application.createdAt)}
+                <div className="admin-overview-grid">
+                  <div className="admin-card">
+                    <h2>Recent jobs</h2>
+                    <div className="compact-list">
+                      {jobs.slice(0, 5).map((job) => (
+                        <div className="compact-row" key={job._id}>
+                          <div>
+                            <strong>{job.title}</strong>
+                            <span>
+                              {getCompanyName(job)} • {job.location}
+                            </span>
+                          </div>
+                          <span className={`status-pill ${job.isActive ? 'active' : 'closed'}`}>
+                            {job.isActive ? 'active' : 'inactive'}
                           </span>
                         </div>
-                        <span className={`status-pill ${application.status}`}>
-                          {application.status}
-                        </span>
-                      </div>
-                    ))}
+                      ))}
 
-                    {applications.length === 0 && (
-                      <p className="muted">No applications found yet.</p>
-                    )}
+                      {jobs.length === 0 && <p className="muted">No jobs found yet.</p>}
+                    </div>
+                  </div>
+
+                  <div className="admin-card">
+                    <h2>Recent applications</h2>
+                    <div className="compact-list">
+                      {applications.slice(0, 5).map((application) => (
+                        <div className="compact-row" key={application._id}>
+                          <div>
+                            <strong>{application.studentId?.name || 'Unknown student'}</strong>
+                            <span>
+                              {application.jobId?.title || 'Unknown job'} •{' '}
+                              {formatDate(application.createdAt)}
+                            </span>
+                          </div>
+                          <span className={`status-pill ${application.status}`}>
+                            {application.status}
+                          </span>
+                        </div>
+                      ))}
+
+                      {applications.length === 0 && (
+                        <p className="muted">No applications found yet.</p>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
 
             {activeTab === 'jobs' && (
@@ -339,6 +384,7 @@ export default function AdminDashboard() {
                       jobs.
                     </p>
                   </div>
+
                   <Link className="btn-primary" to="/company/jobs/new">
                     Post job
                   </Link>
@@ -366,18 +412,22 @@ export default function AdminDashboard() {
                               {job.jobType} • {job.category}
                             </small>
                           </td>
+
                           <td>{getCompanyName(job)}</td>
                           <td>{job.location}</td>
                           <td>{job.applicantsCount ?? 0}</td>
+
                           <td>
                             <span className={`status-pill ${job.isActive ? 'active' : 'closed'}`}>
                               {job.isActive ? 'active' : 'inactive'}
                             </span>
                           </td>
+
                           <td className="table-actions">
                             <Link className="btn-small" to={`/jobs/${job._id}`}>
                               View
                             </Link>
+
                             <button
                               type="button"
                               className="btn-delete btn-small"
@@ -422,13 +472,17 @@ export default function AdminDashboard() {
                             <strong>{application.studentId?.name || 'Unknown student'}</strong>
                             <small>{application.studentId?.email}</small>
                           </td>
+
                           <td>{application.jobId?.title || 'Unknown job'}</td>
+
                           <td>
                             {application.companyId?.companyProfile?.companyName ||
                               application.companyId?.name ||
                               'Unknown company'}
                           </td>
+
                           <td>{formatDate(application.createdAt)}</td>
+
                           <td>
                             <select
                               value={application.status}
@@ -443,6 +497,7 @@ export default function AdminDashboard() {
                               ))}
                             </select>
                           </td>
+
                           <td className="table-actions">
                             <button
                               type="button"
@@ -489,11 +544,15 @@ export default function AdminDashboard() {
                               <small>Contact: {account.name}</small>
                             )}
                           </td>
+
                           <td>{account.email}</td>
+
                           <td>
                             <span className={`role-chip ${account.role}`}>{account.role}</span>
                           </td>
+
                           <td>{formatDate(account.createdAt)}</td>
+
                           <td className="table-actions">
                             {account.role === 'admin' ? (
                               <span className="admin-protected-text">Protected</span>

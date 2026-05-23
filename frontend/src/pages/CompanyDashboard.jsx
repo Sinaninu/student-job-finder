@@ -14,6 +14,7 @@ export default function CompanyDashboard() {
         API.get('/jobs/company/my-jobs'),
         API.get('/applications/company'),
       ])
+
       setJobs(jobsResponse.data)
       setApplications(appsResponse.data)
     } finally {
@@ -45,43 +46,78 @@ export default function CompanyDashboard() {
     loadData()
   }
 
-  if (loading) return <div className="container"><div className="card">Loading recruiter dashboard...</div></div>
+  if (loading) {
+    return (
+      <main className="company-dashboard">
+        <div className="card">Loading recruiter dashboard...</div>
+      </main>
+    )
+  }
 
   return (
-    <div className="container">
-      <div className="dashboard-hero">
+    <main className="company-dashboard">
+      <section className="company-header">
         <div>
-          <h2>Recruiter Dashboard</h2>
-          <p className="dashboard-intro">Manage job posts, review applicants, and access candidate CVs.</p>
+          <h1>Recruiter Dashboard</h1>
+          <p>Manage job posts, review applicants, and access candidate CVs.</p>
         </div>
-        <button className="btn-primary" onClick={() => navigate('/company/jobs/new')}>Post New Job</button>
-      </div>
 
-      <div className="admin-stats">
-        <div className="stat-card"><h3>Active Jobs</h3><p className="stat-number">{jobs.length}</p></div>
-        <div className="stat-card"><h3>Total Applicants</h3><p className="stat-number">{applications.length}</p></div>
-        <div className="stat-card"><h3>Reviewed</h3><p className="stat-number">{applications.filter((a) => a.status === 'reviewed').length}</p></div>
-      </div>
+        <button
+          className="btn-primary"
+          onClick={() => navigate('/company/jobs/new')}
+        >
+          Post New Job
+        </button>
+      </section>
 
-      <div className="admin-section">
+      <section className="company-stats">
+        <div className="company-stat-card">
+          <span>Active Jobs</span>
+          <strong>{jobs.length}</strong>
+        </div>
+
+        <div className="company-stat-card">
+          <span>Total Applicants</span>
+          <strong>{applications.length}</strong>
+        </div>
+
+        <div className="company-stat-card">
+          <span>Reviewed</span>
+          <strong>
+            {applications.filter((app) => app.status === 'reviewed').length}
+          </strong>
+        </div>
+      </section>
+
+      <section className="company-section">
         <h2>Applicant Management</h2>
+
         {jobs.length === 0 ? (
           <div className="card">You have not posted any jobs yet.</div>
         ) : (
           jobs.map((job) => (
-            <div className="card" key={job._id}>
-              <div className="section-header">
+            <article className="company-job-card" key={job._id}>
+              <div className="company-job-header">
                 <div>
                   <h3>{job.title}</h3>
-                  <p>{job.location} • {job.jobType} • {job.category} • Views: {job.views || 0}</p>
+                  <p>
+                    {job.location} • {job.jobType} • {job.category} • Views:{' '}
+                    {job.views || 0}
+                  </p>
                   <p>Applicants: {appsByJob[job._id]?.length || 0}</p>
                 </div>
-                <button className="btn-delete" onClick={() => deleteJob(job._id)}>Delete Job</button>
+
+                <button
+                  className="btn-delete"
+                  onClick={() => deleteJob(job._id)}
+                >
+                  Delete Job
+                </button>
               </div>
 
               {appsByJob[job._id]?.length ? (
-                <div className="admin-table">
-                  <table>
+                <div className="company-table-wrapper">
+                  <table className="company-table">
                     <thead>
                       <tr>
                         <th>Candidate</th>
@@ -91,22 +127,43 @@ export default function CompanyDashboard() {
                         <th>Message</th>
                       </tr>
                     </thead>
+
                     <tbody>
                       {appsByJob[job._id].map((app) => {
                         const resumeUrl = app.studentId?.resume?.url
                         const email = app.studentId?.email
-                        const template = `mailto:${email}?subject=Interview invitation for ${encodeURIComponent(job.title)}&body=Hello ${encodeURIComponent(app.studentId?.name || '')},%0D%0A%0D%0AWe reviewed your application for ${encodeURIComponent(job.title)} and would like to schedule an interview.%0D%0A%0D%0AThanks.`
+                        const template = `mailto:${email}?subject=Interview invitation for ${encodeURIComponent(
+                          job.title
+                        )}&body=Hello ${encodeURIComponent(
+                          app.studentId?.name || ''
+                        )},%0D%0A%0D%0AWe reviewed your application for ${encodeURIComponent(
+                          job.title
+                        )} and would like to schedule an interview.%0D%0A%0D%0AThanks.`
+
                         return (
                           <tr key={app._id}>
                             <td>{app.studentId?.name}</td>
                             <td>{email}</td>
                             <td>
                               {resumeUrl ? (
-                                <a href={`http://localhost:5000${resumeUrl}`} target="_blank" rel="noreferrer">View / Download CV</a>
-                              ) : 'No CV uploaded'}
+                                <a
+                                  href={`http://localhost:5000${resumeUrl}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  View / Download CV
+                                </a>
+                              ) : (
+                                'No CV uploaded'
+                              )}
                             </td>
                             <td>
-                              <select value={app.status} onChange={(e) => updateStatus(app._id, e.target.value)}>
+                              <select
+                                value={app.status}
+                                onChange={(e) =>
+                                  updateStatus(app._id, e.target.value)
+                                }
+                              >
                                 <option value="submitted">Submitted</option>
                                 <option value="reviewed">Reviewed</option>
                                 <option value="closed">Closed</option>
@@ -114,7 +171,9 @@ export default function CompanyDashboard() {
                                 <option value="rejected">Rejected</option>
                               </select>
                             </td>
-                            <td><a href={template}>Message</a></td>
+                            <td>
+                              <a href={template}>Message</a>
+                            </td>
                           </tr>
                         )
                       })}
@@ -122,12 +181,12 @@ export default function CompanyDashboard() {
                   </table>
                 </div>
               ) : (
-                <p>No applicants yet.</p>
+                <p className="empty-state">No applicants yet.</p>
               )}
-            </div>
+            </article>
           ))
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }

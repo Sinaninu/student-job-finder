@@ -75,7 +75,8 @@ export default function Profile() {
     setMessage('Resume deleted.')
   }
 
-  const resumeUrl = user?.resume?.url ? `http://localhost:5000${user.resume.url}` : null
+const API_ROOT = import.meta.env.VITE_API_ROOT || 'http://localhost:5000'
+const resumeUrl = user?.resume?.url ? `${API_ROOT}${user.resume.url}` : null
 
   return (
     <div className="container form-page">

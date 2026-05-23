@@ -147,7 +147,7 @@ export default function CompanyDashboard() {
                             <td>
                               {resumeUrl ? (
                                 <a
-                                  href={`http://localhost:5000${resumeUrl}`}
+                                  href={`${import.meta.env.VITE_API_ROOT || 'http://localhost:5000'}${resumeUrl}`}
                                   target="_blank"
                                   rel="noreferrer"
                                 >

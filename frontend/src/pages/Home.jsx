@@ -18,15 +18,16 @@ export default function Home() {
   }
 
   return (
-    <div className="hero">
-      <div className="hero-content">
-        <h1>
-          Find the Right Job
-          <br />
-          for Your Future
-        </h1>
+    <main className="hero">
+      <section className="hero-content">
+        <p className="eyebrow">Student Job Finder</p>
 
-        <p>Discover part-time and entry-level jobs all in one place.</p>
+        <h1>Find the right job for your future</h1>
+
+        <p>
+          A clean recruitment platform where students discover part-time jobs
+          and companies manage applications in one place.
+        </p>
 
         <div className="hero-buttons">
           <button
@@ -42,8 +43,32 @@ export default function Home() {
           >
             I'm a Company
           </button>
+
+          <button
+            className="btn-outline"
+            onClick={() => navigate('/jobs')}
+          >
+            Browse Jobs
+          </button>
         </div>
-      </div>
-    </div>
+
+        <div className="hero-stats">
+          <div className="hero-stat">
+            <strong>Fast</strong>
+            <span>Search and apply quickly</span>
+          </div>
+
+          <div className="hero-stat">
+            <strong>Secure</strong>
+            <span>Role-based access</span>
+          </div>
+
+          <div className="hero-stat">
+            <strong>Simple</strong>
+            <span>Clean dashboards</span>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

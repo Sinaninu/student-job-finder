@@ -3,25 +3,28 @@
 Student Job Finder is a full-stack MERN web application designed to connect students with internships, part-time jobs, and entry-level job opportunities.
 
 The platform supports three user roles:
+
 - Students
 - Companies
 - Administrators
 
-Students can browse jobs, save listings, apply for positions, upload CVs, and track their applications. Companies can create job posts, manage applicants, and update application statuses. Admin users can manage users, jobs, applications, and monitor platform activity through dashboard statistics.
+Students can browse jobs, save listings, apply for positions, upload CVs/resumes, and track their applications. Companies can create job posts, manage applicants, and update application statuses. Admin users can manage users, jobs, applications, and monitor platform activity through dashboard statistics.
 
 ---
 
-# Live Deployment
+## Live Deployment
 
-Frontend deployed on Vercel:
-
-https://student-job-finder-3bqka5u17-student-job-finder.vercel.app
+- **Frontend:** https://student-job-finder-ashy.vercel.app
+- **Backend API:** https://student-job-finder-jewp.onrender.com
+- **GitHub Repository:** https://github.com/Sinaninu/student-job-finder.git
+- **Main Branch:** `main`
+- **Database:** MongoDB Atlas
 
 ---
 
-# Features
+## Features
 
-## Student Features
+### Student Features
 
 - Register and log in as a student
 - Browse available jobs
@@ -34,7 +37,7 @@ https://student-job-finder-3bqka5u17-student-job-finder.vercel.app
 - Upload, view, and delete CV/resume files
 - Edit student profile information
 
-## Company Features
+### Company Features
 
 - Register and log in as a company
 - Create job posts
@@ -45,7 +48,7 @@ https://student-job-finder-3bqka5u17-student-job-finder.vercel.app
 - Delete job posts
 - Edit company profile information
 
-## Admin Features
+### Admin Features
 
 - Log in through the admin portal
 - View platform statistics
@@ -57,9 +60,9 @@ https://student-job-finder-3bqka5u17-student-job-finder.vercel.app
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-## Frontend
+### Frontend
 
 - React
 - Vite
@@ -67,7 +70,7 @@ https://student-job-finder-3bqka5u17-student-job-finder.vercel.app
 - Axios
 - CSS
 
-## Backend
+### Backend
 
 - Node.js
 - Express.js
@@ -80,38 +83,35 @@ https://student-job-finder-3bqka5u17-student-job-finder.vercel.app
 - CORS
 - Nodemon
 
+### Deployment
+
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
+
 ---
 
-# How to Run the Project
+## How to Run the Project Locally
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Sinaninu/student-job-finder
+git clone https://github.com/Sinaninu/student-job-finder.git
 cd student-job-finder
 ```
 
 ---
 
-## 2. Install Dependencies
-
-### Backend
+### 2. Install Backend Dependencies
 
 ```bash
 cd backend
 npm install
 ```
 
-### Frontend
-
-```bash
-cd ../frontend
-npm install
-```
-
 ---
 
-## 3. Configure Environment Variables
+### 3. Configure Backend Environment Variables
 
 Create a `.env` file inside the `backend` folder:
 
@@ -126,7 +126,6 @@ DNS_SERVERS=8.8.8.8,1.1.1.1
 The project also includes a backend `.env.example` file which can be copied as a starting point:
 
 ```bash
-cd backend
 cp .env.example .env
 ```
 
@@ -134,15 +133,15 @@ Then update the values in `.env` with your own MongoDB connection string and JWT
 
 ---
 
-## 4. Run the Backend Server
+### 4. Run the Backend Server
 
-Inside the backend folder:
+Inside the `backend` folder:
 
 ```bash
 npm run dev
 ```
 
-Backend runs at:
+The backend runs at:
 
 ```txt
 http://localhost:5000
@@ -150,16 +149,44 @@ http://localhost:5000
 
 ---
 
-## 5. Run the Frontend
+### 5. Install Frontend Dependencies
 
-Open a second terminal and run:
+Open a second terminal from the project root:
 
 ```bash
 cd frontend
+npm install
+```
+
+---
+
+### 6. Configure Frontend Environment Variables
+
+Create a `.env` file inside the `frontend` folder:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_API_ROOT=http://localhost:5000
+```
+
+For deployed frontend usage, the Vercel environment variables should point to the deployed backend:
+
+```env
+VITE_API_URL=https://student-job-finder-jewp.onrender.com/api
+VITE_API_ROOT=https://student-job-finder-jewp.onrender.com
+```
+
+---
+
+### 7. Run the Frontend
+
+Inside the `frontend` folder:
+
+```bash
 npm run dev
 ```
 
-Frontend runs at:
+The frontend runs at:
 
 ```txt
 http://localhost:5173
@@ -167,7 +194,7 @@ http://localhost:5173
 
 ---
 
-# Backend Scripts
+## Backend Scripts
 
 From the `backend` folder:
 
@@ -175,7 +202,7 @@ From the `backend` folder:
 npm run dev
 ```
 
-Starts the backend server using nodemon.
+Starts the backend server using Nodemon.
 
 ```bash
 npm start
@@ -191,7 +218,7 @@ Creates or updates an admin account.
 
 ---
 
-# Creating an Admin User
+## Creating an Admin User
 
 Run:
 
@@ -215,7 +242,7 @@ ADMIN_NAME="Your Name" ADMIN_EMAIL="you@example.com" ADMIN_PASSWORD="StrongPass1
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```txt
 student-job-finder/
@@ -241,6 +268,7 @@ student-job-finder/
 │   │   ├── index.css
 │   │   └── main.jsx
 │   ├── index.html
+│   ├── vercel.json
 │   └── package.json
 │
 ├── .gitignore
@@ -249,9 +277,9 @@ student-job-finder/
 
 ---
 
-# API Overview
+## API Overview
 
-## Authentication Routes
+### Authentication Routes
 
 Base route:
 
@@ -270,7 +298,7 @@ Base route:
 
 ---
 
-## Job Routes
+### Job Routes
 
 Base route:
 
@@ -289,7 +317,7 @@ Base route:
 
 ---
 
-## Application Routes
+### Application Routes
 
 Base route:
 
@@ -307,7 +335,7 @@ Base route:
 
 ---
 
-## Saved Job Routes
+### Saved Job Routes
 
 Base route:
 
@@ -323,7 +351,7 @@ Base route:
 
 ---
 
-## Admin Routes
+### Admin Routes
 
 Base route:
 
@@ -342,7 +370,7 @@ Base route:
 
 ---
 
-# Authentication
+## Authentication
 
 The backend uses JWT authentication.
 
@@ -352,11 +380,13 @@ After login, the frontend stores the token in `localStorage` and sends it throug
 Authorization: Bearer <token>
 ```
 
+Role-based access is used to separate student, company, and admin functionality.
+
 ---
 
-# Resume Uploads
+## Resume Uploads
 
-Students can upload resumes in:
+Students can upload resumes in the following formats:
 
 ```txt
 .pdf, .doc, .docx
@@ -370,11 +400,46 @@ backend/uploads/resumes
 
 ---
 
-# Common Issues
+## System Description
 
-## Backend Cannot Connect to MongoDB
+Student Job Finder was developed to simplify the process of connecting students with companies offering internships, part-time jobs, and entry-level opportunities.
+
+The application follows a MERN stack architecture:
+
+1. The React frontend sends requests using Axios.
+2. The Express backend receives requests through API routes.
+3. Controllers handle the logic and communicate with MongoDB through Mongoose models.
+4. MongoDB Atlas stores users, jobs, applications, and saved jobs.
+5. JWT authentication protects private routes and role-based features.
+
+The system includes:
+
+- Role-based authentication
+- Job posting and management
+- Student applications
+- Saved jobs functionality
+- Resume uploads
+- Admin dashboard with statistics and charts
+- Responsive layouts for desktop and mobile devices
+
+---
+
+## Team Members & Contributions
+
+| Name | Git Username | Focus Area | Key Contributions |
+|---|---|---|---|
+| Sina Estifanos | `Sinaninu` | Frontend Admin Dashboard, Integration, Authentication Testing & Deployment | Built and improved the Admin Dashboard frontend, connected admin pages to protected backend APIs, tested role-based access, deployed both the frontend and backend, and configured frontend deployment environment variables. |
+| Ayisha Omer | `ayishaom` | Backend Development: Jobs & Applications | Developed jobs and applications backend features, created API endpoints for jobs and applications, and contributed to saved jobs functionality integration. |
+| Sadia Omer | `Ssadiia-Omer` | Frontend Development & UI Design | Developed frontend pages and layouts, implemented routing and navigation system, and designed responsive user interface and dashboards. |
+
+---
+
+## Common Issues
+
+### Backend Cannot Connect to MongoDB
 
 Check that:
+
 - `MONGODB_URI` is correct
 - MongoDB Atlas allows your IP address
 - Database credentials are correct
@@ -382,28 +447,31 @@ Check that:
 
 ---
 
-## Frontend Cannot Reach Backend
+### Frontend Cannot Reach Backend
 
 Check that:
+
 - Backend server is running
 - Backend runs on port `5000`
-- `CLIENT_URL=http://localhost:5173` is set
-- Frontend API URL matches backend URL
+- `CLIENT_URL=http://localhost:5173` is set in backend `.env`
+- `VITE_API_URL=http://localhost:5000/api` is set in frontend `.env`
+- For deployment, Vercel environment variables point to the Render backend URL
 
 ---
 
-## Resume Links Do Not Open
+### Resume Links Do Not Open
 
 Check that:
+
 - Backend server is running
 - Uploaded files still exist
-- Resume URL matches backend port
+- Resume URL matches the backend URL
 
 ---
 
-# Build Frontend for Production
+## Build Frontend for Production
 
-Inside the frontend folder:
+Inside the `frontend` folder:
 
 ```bash
 npm run build
@@ -417,44 +485,19 @@ npm run preview
 
 ---
 
-# System Description
-
-Student Job Finder was developed to simplify the process of connecting students with companies offering internships, part-time jobs, and entry-level opportunities.
-
-The platform includes:
-- Role-based authentication
-- Job posting and management
-- Student applications
-- Saved jobs functionality
-- Resume uploads
-- Admin dashboard with statistics and charts
-- Responsive layouts for desktop and mobile devices
-
-The application follows a MERN stack architecture using React on the frontend and Node.js/Express with MongoDB on the backend.
-
----
-
-# Team Members
-
-- **Ayisha Omer** — Backend development, jobs, applications, saved jobs integration, dashboards, and UI improvements
-- **Sina Estifanos** — Database, backend architecture, authentication, security, and UI improvements
-- **Sadia Omer** — Frontend development, routing, responsive UI design, and styling
-
----
-
-# Future Improvements
+## Future Improvements
 
 Possible future improvements include:
+
 - Email notifications
 - Password reset functionality
 - Improved form validation
 - Pagination
-- External API integration
-- Better mobile responsiveness
+- External job API integration
 - Real-time updates
 
 ---
 
-# License
+## License
 
 This project is licensed under the ISC License.

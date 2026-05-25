@@ -37,7 +37,7 @@ export default function Register() {
 
       setError(
         err.response?.data?.message ||
-        (err.request ? 'Unable to reach the backend API. Please make sure the server is running on http://localhost:5000.' : err.message) ||
+        (err.request ? 'Unable to reach the backend API. Please make sure the server is running.' : err.message) ||
         'Registration failed. Please try again.'
       )
     } finally {

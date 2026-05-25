@@ -54,7 +54,7 @@ export default function About() {
     },
     {
       name: 'Sina Estifanos',
-      role: 'Database, backend, and authentication',
+      role: 'Frontend Admin Dashboard, Integration, Authentication Testing & Deployment',
     },
     {
       name: 'Sadia Omer',
